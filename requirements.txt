@@ -1,0 +1,6 @@
+Werkzeug==0.14.1
+numpy==1.14.1
+Flask==0.12.2
+gunicorn==19.7.1
+https://github.com/Theano/Theano/archive/master.zip
+https://github.com/Lasagne/Lasagne/archive/master.zip

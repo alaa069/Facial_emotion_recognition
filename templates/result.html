@@ -1,0 +1,48 @@
+<!doctype html>
+    <head>
+    <title>Emotions</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fakeLoader.css') }}">
+    <link rel= "stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='fakeLoader.min.js') }}"></script>
+    </head>
+
+<body>
+<div id="fakeloader"></div>
+
+<script>
+function init_loader(time) {
+    $("#fakeloader").show(0);
+    $("#fakeloader").fakeLoader({
+        timeToHide: 800,
+        bgColor:"#1F2739",
+        spinner:"spinner6"
+    });
+}
+init_loader(800);
+</script>
+
+<center><h1>Emotions</h1></center>
+<center><img src="{{ url_for('send_file', filename=filename) }}"></center><br>
+
+<table class="container">
+    <thead>
+        <tr>
+            <th><div class="table-head">Emotion</div></th>
+            <th><div class="table-head">Emoji</div></th>
+            <th><div class="table-head">Confidence</div></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for i in range(conf|length): %}
+        <tr>
+            <td>{{ emotions[i] }}</td>
+            <td><i class="em em-{{ emojis[i] }}"></i></td>
+            <td>{{ '{:.2f}%'.format(conf[i]) }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>

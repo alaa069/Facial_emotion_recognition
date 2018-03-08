@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Emotions</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fakeLoader.css') }}">
+    <link rel= "stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='fakeLoader.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='webcam.js') }}"></script>
+</head>
+
+<body>
+<div id="fakeloader"></div>
+<center><h1>Recognize emotions</h1></center>
+<center><div id="my_camera" style="width:640px; height:480px;"></div></center>
+
+<script>
+function init_loader(time) {
+    $("#fakeloader").show(0);
+    $("#fakeloader").fakeLoader({
+        timeToHide: 800,
+        bgColor:"#1F2739",
+        spinner:"spinner6"
+    });
+}
+
+init_loader(800);
+</script>
+
+
+<script>
+Webcam.attach('#my_camera');
+
+function take_snapshot() {
+    init_loader(500);
+    Webcam.snap(function(data_uri) {
+        Webcam.upload(data_uri, '/', function(code, text) {
+            window.location = text;
+        });
+    });
+}
+</script>
+
+<center>
+    <a href="javascript:void(take_snapshot())">Take a Snapshot</a>
+    <br>
+    or upload a new File
+    <form method=post enctype=multipart/form-data name="image">
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
+</center>
+
+<script>
+document.forms["image"].onsubmit = function(){
+    init_loader(800);
+}
+</script>
+
+</body>
+</html>
